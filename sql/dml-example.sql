@@ -73,7 +73,7 @@ INSERT INTO item(
 	itemDescription
 )
 VALUES(
-	'4',
+	'2',
 	'Dreamcatcher',
 	'All dreamcatchers are handmade by me'
 );
@@ -140,10 +140,12 @@ INSERT INTO image(
 	imageType
 )
 VALUES(
-	'4',
+	'5',
 	'catcher-45',
 	'.jpg'
 );
 */
 
-
+/*
+DELETE FROM item WHERE itemId > 5;
+*/
