@@ -200,6 +200,13 @@ class Seller {
 		$this->sellerSalt = $newSellerSalt;
 	}
 
+	/**
+	 * inserts this seller into mySQL
+	 *
+	 * @param \PDO $pdo connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is is not a PDO connection object
+	 */
 
 }
 
