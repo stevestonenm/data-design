@@ -1,0 +1,30 @@
+DROP TABLE IF EXISTS image;
+DROP TABLE IF EXISTS item;
+DROP TABLE IF EXISTS seller;
+
+CREATE TABLE seller (
+	sellerId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	sellerEmail VARCHAR(128) NOT NULL,
+	sellerHash CHAR(128) NOT NULL,
+	sellerSalt CHAR(64) NOT NULL,
+	UNIQUE(sellerEmail),
+	PRIMARY KEY(sellerId)
+);
+
+CREATE TABLE item (
+	itemId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	itemsellerId INT UNSIGNED NOT NULL,
+	itemName VARCHAR(128) NOT NULL,
+	itemDescription VARCHAR(256)NOT NULL,
+	FOREIGN KEY(itemsellerId) REFERENCES seller(sellerId),
+	PRIMARY KEY(itemId)
+);
+
+CREATE TABLE image(
+	imageId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	imageItemId INT UNSIGNED NOT NULL,
+	imageName VARCHAR(128) NOT NULL,
+	imageType CHAR(8),
+	FOREIGN KEY(imageItemId) REFERENCES item(itemid),
+	PRIMARY KEY(imageId)
+);
