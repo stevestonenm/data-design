@@ -207,7 +207,22 @@ class Seller {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is is not a PDO connection object
 	 */
+	public function insert(\PDO $pdo): void {
+		// enforce the sellerId is null (i.e., don't insert a profile that already exists)
+		if($this->sellerId !== null) {
+			throw(new \PDOException("not a new seller"));
+		}
+		// create query template
+		$query = "INSERT INTO seller(sellerEmail, sellerHash, sellerSalt) VALUES (:sellerEmail, :sellerHash, :sellerSalt)";
+		$statement = $pdo->prepare($query);
 
+		// bind the member variables to the place holders in the template
+		$parameters = ["sellerEmail" => $this->sellerEmail, "sellerHash" => $this->sellerHash, "sellerSalt" => $this->sellerSalt];
+		$statement->execute($parameters);
+
+		//update the null profileId with what mySQL just gave us
+		$this->sellerId = intval($pdo->lastInsertId());
+	}
 }
 
 
