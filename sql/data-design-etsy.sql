@@ -13,10 +13,10 @@ CREATE TABLE seller (
 
 CREATE TABLE item (
 	itemId INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	itemsellerId INT UNSIGNED NOT NULL,
+	itemSellerId INT UNSIGNED NOT NULL,
 	itemName VARCHAR(128) NOT NULL,
 	itemDescription VARCHAR(256)NOT NULL,
-	FOREIGN KEY(itemsellerId) REFERENCES seller(sellerId),
+	FOREIGN KEY(itemSellerId) REFERENCES seller(sellerId),
 	PRIMARY KEY(itemId)
 );
 

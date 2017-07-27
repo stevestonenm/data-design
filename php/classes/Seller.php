@@ -272,7 +272,7 @@ class Seller {
 	 * @param \PDO $pdo PDO connection object
 	 * @param int $sellerId seller id to search for
 	 * @return Seller|null Seller or null if not found
-	 * throws \PDOException when mySQL related errors occur
+	 * @throws \PDOException mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
 	public static function getSellerBySellerId(\PDO $pdo, int $sellerId):?Seller {
@@ -303,6 +303,15 @@ class Seller {
 		}
 		return ($seller);
 	}
+
+	/** gets item by seller id
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $itemSellerId seller id to search by
+	 * @return \SplFixedArray of items found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getItemByItemSellerId(\PDO $pdo, int $itemSellerId)
 }
 
 

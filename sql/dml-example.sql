@@ -1,5 +1,5 @@
 -- first attempt at inserting data into tables
-/*
+/**
 INSERT INTO seller(
 	sellerEmail,
 	sellerHash,
@@ -32,10 +32,10 @@ VALUES (
 	'ccddeeffgghhiijjkkllmmnnooppqqrr',
 	'eutrjkdfhrpgkda56'
 );
-*/
-/*
+
+
 INSERT INTO item(
-	itemsellerId,
+	itemSellerId,
 	itemName,
 	itemDescription
 )
@@ -46,7 +46,7 @@ VALUES(
 );
 
 INSERT INTO item(
-	itemsellerId,
+	itemSellerId,
 	itemName,
 	itemDescription
 )
@@ -57,28 +57,28 @@ VALUES(
 );
 
 INSERT INTO item(
-	itemsellerId,
-	itemName,
-	itemDescription
-)
-VALUES(
-	'3',
-	'The Ram',
-	'This photograph was taken on Engineering Pass at 13560 feet of elevation'
-);
-
-INSERT INTO item(
-	itemsellerId,
+	itemSellerId,
 	itemName,
 	itemDescription
 )
 VALUES(
 	'2',
+	'The Ram',
+	'This photograph was taken on Engineering Pass at 13560 feet of elevation'
+);
+
+INSERT INTO item(
+	itemSellerId,
+	itemName,
+	itemDescription
+)
+VALUES(
+	'3',
 	'Dreamcatcher',
 	'All dreamcatchers are handmade by me'
 );
-*/
-/*
+**/
+/**
 INSERT INTO image(
 	imageItemId,
 	imageName,
@@ -140,12 +140,9 @@ INSERT INTO image(
 	imageType
 )
 VALUES(
-	'5',
+	'4',
 	'catcher-45',
 	'.jpg'
 );
-*/
+**/
 
-/*
-DELETE FROM item WHERE itemId > 5;
-*/
