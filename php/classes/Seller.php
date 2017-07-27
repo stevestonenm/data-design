@@ -220,9 +220,61 @@ class Seller {
 		$parameters = ["sellerEmail" => $this->sellerEmail, "sellerHash" => $this->sellerHash, "sellerSalt" => $this->sellerSalt];
 		$statement->execute($parameters);
 
-		//update the null profileId with what mySQL just gave us
+		//update the null sellerId with what mySQL just gave us
 		$this->sellerId = intval($pdo->lastInsertId());
 	}
+	/**
+	 * deletes this seller from mysql
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo): void{
+		// enforce the sellerId is not null (i.e., don't delete a seller that does not exist)
+		if($this->sellerId === null) {
+			throw(new \PDOException("unable to delete a seller that does not exist"));
+		}
+
+		//create query template
+		$query = "DELETE FROM seller WHERE sellerId = :sellerId";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = ["sellerId" => $this->sellerId];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * updates this seller from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo): void {
+		// enforce the sellerId is not null (i.e. don't update a profile that does not exist)
+		if($this->sellerId === null) {
+			throw(new \PDOException("unable to update a seller that does not exist"));
+		}
+		// create query template
+		$query = "UPDATE seller SET sellerEmail = :sellerEmail, sellerHash = :sellerHash, sellerSalt = :sellerSalt WHERE sellerId = :sellerId";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = ["sellerId" => $this->sellerId, "sellerEmail" => $this->sellerEmail, "sellerHash" => $this->sellerHash, "sellerSalt" => $this->sellerSalt];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * gets the seller by seller id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $sellerId seller id to search for
+	 * @return Seller|null Seller or null if not found
+	 * throws \PDOException when mySQL related errors occur
+	 * @throws |\TypeError
+	 */
 }
 
 
