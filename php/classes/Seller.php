@@ -311,7 +311,34 @@ class Seller {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getItemByItemSellerId(\PDO $pdo, int $itemSellerId)
+	public static function getItemByItemSellerId(\PDO $pdo, int $itemSellerId) : \SPLFixedArray {
+		// sanitize the profile id before searching
+		if($itemSellerId <= 0) {
+			throw(new \RangeException("item seller id must be positive"));
+		}
+		// create query template
+		$query = "SELECT itemId, itemSellerId, itemName, itemDescription FROM item WHERE itemSellerId = :itemSellerId";
+		$statement = $pdo->prepare($query);
+
+		// bind the item seller id to the place holder in the template
+		$parameters = ["itemSellerId" => $itemSellerId];
+		$statement->execute($parameters);
+
+		// build an array of items
+		$items = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !==false) {
+			try{
+				$item = new Item($row["itemId"], $row["itemSellerId"], $row["itemName"], $row["itemDescription"]);
+				$items[$items->key()] = $item;
+				$items->next();
+			}catch(\Exception $exception) {
+				// if the row couldn't ve converted rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($items);
+	}
 }
 
 
